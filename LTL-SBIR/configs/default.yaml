@@ -1,0 +1,36 @@
+
+experiment:
+  name: ltl_sbir
+  seed: 1337
+  out_dir: runs/ltl_sbir
+
+data:
+  root: data/qmul-shoe-v2
+  images_csv: meta/images.csv
+  sketches_csv: meta/sketches.csv
+  train_pairs_csv: null
+  img_size: 224
+  num_workers: 4
+
+model:
+  backbone: resnet50
+  embedding_dim: 512
+  shared_backbone: false
+  ltl:
+    use_se: true
+    dw_kernel: 3
+    pw_channels: 256
+
+train:
+  batch_size: 32
+  epochs: 40
+  optimizer: adam
+  lr: 0.0002
+  weight_decay: 0.0001
+  margin: 0.2
+  grad_clip: 1.0
+  mixed_precision: true
+
+eval:
+  topk: [1,5,10,100]
+  save_embeddings: true
